@@ -1,0 +1,73 @@
+<div class='panel panel-primary'>
+  <div class='panel heading'>
+    {{PageTitle}}
+  </div>
+  <div class='panel-body'>
+    <div class='row'>
+      
+      <div class='col-md-2'>Filter By</div>
+      <div class='col-md-4'>
+       
+      <input type='text' (keyup.enter)="SearchBook(title)"  #title/> 
+              <!-- [(ngModel)] = 'listFilter' placeholder='Search'    !!!** Ajouter dans app.module.ts FormsModule: imports -->
+     </div>
+
+            
+       
+    </div>
+    <div class='row'>
+       <div class='col-md-6'>
+         <!--Display entred filer -->
+         <h3>Filtered by: {{listFilter}} </h3>
+       </div>
+
+    </div>
+    <div class='table-responsive'>
+      <table class='table' *ngIf = 'Livres && Livres.length '>
+        
+          <tr>
+            <th></th>
+            <th>Name</th>
+    
+            <th>ReleaseDate</th>
+            <th>Prix</th>
+            <th>StarRating</th>
+            <th>Ajouter au Panier</th>
+          </tr>
+        
+        <tbody>
+          <!-- Table Body   
+            <tr *ngFor ='let livre of Livres | searchfilter : listFilter' >
+            <tr *ngFor ='let livre of Livres'></tr>      -->
+            <tr *ngFor ='let livre of Livres | searchfilter : listFilter' >
+            
+          <!-- Table DATA <td> -->
+            <td>
+              <img [src]='livre.imageUrl' [title]='livre.BookName'
+              [style.width.px]='imageWidth'  [style.Margin.px]='imageMargin'
+              >
+            </td>
+          <td>
+            <a [routerLink]="['/BookList', livre.bookId]">
+            
+            
+            {{ livre.bookName }}</a></td>
+          <td>{{ livre.bookCode | lowercase}}</td>
+          <td>{{ livre.releaseDate }}</td>
+          <td>{{ livre.price | currency:'USD' : true:'1.2-2'}}</td>
+          <td>
+            <ai-star [rating]='livre.starRating'>
+              </ai-star></td>
+          <td>
+            <button class='btn btn-primary'
+            > +</button>
+            <!-- Ajouter fazet + twali "Ajouté" et changer de couleur -->
+          </td>
+
+        </tr> <!-- Table row <tr> -->
+        </tbody>
+      </table>
+    
+    </div>
+  </div>
+</div>
